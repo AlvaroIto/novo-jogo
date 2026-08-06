@@ -12,3 +12,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	velocity = global_position.direction_to(player.global_position) * SPEED
 	move_and_slide()
+
+func die() -> void:
+	get_tree().current_scene.add_kill()
+	queue_free()
