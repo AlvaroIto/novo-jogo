@@ -4,6 +4,8 @@ const SPEED := 300.0
 const PROJECTILE_SCENE := preload("res://Scenes/projectile.tscn")
 const SHOOT_INTERVAL := 1.0
 
+var health := 100
+
 func _ready() -> void:
 	add_to_group("player")
 	var timer := Timer.new()
@@ -17,6 +19,17 @@ func _physics_process(_delta):
 	velocity.x = direction * SPEED
 	velocity.y = 0
 	move_and_slide()
+
+	for i in get_slide_collision_count():
+		var body := get_slide_collision(i).get_collider()
+		if body.is_in_group("enemies"):
+			_take_damage(10)
+
+func _take_damage(amount: int) -> void:
+	health -= amount
+	print("Vida do jogador: ", health)
+	if health <= 0:
+		get_tree().reload_current_scene()
 
 func _shoot() -> void:
 	var enemy := _get_nearest_enemy()
