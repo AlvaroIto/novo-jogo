@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c1tgwjpnwhivr"]
+
+[ext_resource type="PackedScene" uid="uid://dq2321pvnkh6i" path="res://Scenes/player.tscn" id="1_ebmjs"]
+
+[node name="Game" type="Node2D" unique_id=1868896112]
+
+[node name="World" type="Node2D" parent="." unique_id=478076849]
+
+[node name="Player" parent="." unique_id=184454621 instance=ExtResource("1_ebmjs")]
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2035289738]
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=49981326]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=477268044]
