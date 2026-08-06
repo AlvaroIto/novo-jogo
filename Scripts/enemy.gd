@@ -4,6 +4,9 @@ const SPEED := 150.0
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
 
+func _ready() -> void:
+	add_to_group("enemies")
+
 func _physics_process(_delta: float) -> void:
 	if player == null:
 		return
