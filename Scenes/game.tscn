@@ -18,6 +18,7 @@ script = ExtResource("2_qxrlw")
 [node name="Projectiles" type="Node2D" parent="." unique_id=49981326]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=477268044]
+process_mode = 3
 script = ExtResource("4_3dryh")
 
 [node name="HealthLabel" type="Label" parent="UI" unique_id=1904995273]
@@ -40,3 +41,33 @@ offset_top = 80.0
 offset_right = 60.0
 offset_bottom = 103.0
 theme_override_font_sizes/font_size = 24
+
+[node name="GameOverScreen" type="ColorRect" parent="UI" unique_id=649889038]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverScreen" unique_id=149461324]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="StatsLabel" type="Label" parent="UI/GameOverScreen/VBoxContainer" unique_id=1158083766]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverScreen/VBoxContainer" unique_id=637380235]
+layout_mode = 2
+text = "Jogar novamente"
+
+[connection signal="pressed" from="UI/GameOverScreen/VBoxContainer/RestartButton" to="UI" method="_on_restart_button_pressed"]

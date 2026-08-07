@@ -5,6 +5,7 @@ const PROJECTILE_SCENE := preload("res://Scenes/projectile.tscn")
 const SHOOT_INTERVAL := 1.0
 
 var health := 100
+var invincible := false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -26,10 +27,18 @@ func _physics_process(_delta):
 			_take_damage(10)
 
 func _take_damage(amount: int) -> void:
+	if invincible:
+		return
 	health -= amount
 	print("Vida do jogador: ", health)
 	if health <= 0:
-		get_tree().reload_current_scene()
+		_game_over()
+		return
+	invincible = true
+	modulate = Color(1, 0.3, 0.3)  # deixa o jogador avermelhado
+	await get_tree().create_timer(1.0).timeout
+	modulate = Color(1, 1, 1)
+	invincible = false
 
 func _shoot() -> void:
 	var enemy := _get_nearest_enemy()
@@ -50,3 +59,6 @@ func _get_nearest_enemy() -> Node2D:
 			nearest = enemy
 			nearest_distance = distance
 	return nearest
+
+func _game_over() -> void:
+	get_tree().current_scene.get_node("UI").show_game_over()
