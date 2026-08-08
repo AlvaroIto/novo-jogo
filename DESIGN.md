@@ -89,7 +89,7 @@ entrou em colapso.
 2. [x] Variedade de inimigos + vida dos inimigos
 3. [ ] Chefes (mini-boss aos 250 m, boss aos 500 m)
 4. [x] Condição de vitória do mapa → acampamento
-5. [ ] Acampamento (upgrades permanentes + equipar loot)
+5. [x] Acampamento (upgrades permanentes + equipar loot)
 6. [ ] Classes com armas e passivas diferentes
 7. [ ] Sistema de loot com raridade
 8. [ ] Novos biomas/mapas
@@ -118,4 +118,8 @@ entrou em colapso.
   com recompensas de moedas diferentes
 - Tela de game over com estatísticas e reinício
 - Mini-boss aos 250 m e boss final aos 500 m; derrotar o boss final
-  abre a tela de vitória (o botão levará ao acampamento — item 5)
+  abre a tela de vitória
+- Acampamento: moedas persistem entre runs (autoload GameData) e
+  compram upgrades permanentes (vida, dano, velocidade) com custo
+  crescente; o jogo inicia no acampamento (equipar loot virá com o
+  sistema de loot)

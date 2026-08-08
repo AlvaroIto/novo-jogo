@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Novo jogo"
-run/main_scene="uid://c1tgwjpnwhivr"
+run/main_scene="res://Scenes/camp.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameData="*res://Scripts/game_data.gd"
 
 [display]
 

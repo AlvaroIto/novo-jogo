@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/camp.gd" id="1_camp"]
+
+[node name="Camp" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_camp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.09, 0.05, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ACAMPAMENTO"
+horizontal_alignment = 1
+
+[node name="CoinsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+
+[node name="HealthButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SpeedButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Iniciar Run"
+
+[connection signal="pressed" from="VBoxContainer/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/DamageButton" to="." method="_on_damage_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SpeedButton" to="." method="_on_speed_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

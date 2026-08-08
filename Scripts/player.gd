@@ -22,6 +22,10 @@ var slash_timer: Timer
 
 func _ready() -> void:
 	add_to_group("player")
+	max_health += GameData.upgrade_health * 10
+	health = max_health
+	projectile_damage += GameData.upgrade_damage
+	speed *= 1.0 + GameData.upgrade_speed * 0.05
 	min_x = global_position.x
 	shoot_timer = Timer.new()
 	shoot_timer.wait_time = shoot_interval

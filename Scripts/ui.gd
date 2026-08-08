@@ -64,8 +64,7 @@ func show_game_over() -> void:
 	get_tree().paused = true
 
 func _on_restart_button_pressed() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	_go_to_camp()
 
 func show_victory() -> void:
 	var game := get_tree().current_scene
@@ -81,8 +80,13 @@ func show_victory() -> void:
 	get_tree().paused = true
 
 func _on_continue_button_pressed() -> void:
+	_go_to_camp()
+
+func _go_to_camp() -> void:
+	var game := get_tree().current_scene
+	GameData.add_coins(game.coins)
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/camp.tscn")
 
 func _pick_upgrade(index: int) -> void:
 	player.apply_upgrade(current_upgrades[index])

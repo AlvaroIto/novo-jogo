@@ -99,7 +99,7 @@ horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="UI/GameOverScreen/VBoxContainer" unique_id=637380235]
 layout_mode = 2
-text = "Jogar novamente"
+text = "Voltar ao acampamento"
 
 [node name="LevelUpScreen" type="ColorRect" parent="UI" unique_id=1503958516]
 visible = false
