@@ -24,6 +24,9 @@ const UPGRADES := {
 }
 
 var current_upgrades: Array = []
+
+@onready var victory_screen: ColorRect = $VictoryScreen
+@onready var victory_stats_label: Label = $VictoryScreen/VBoxContainer/StatsLabel
 @onready var distance_label: Label = $DistanceLabel
 @onready var coins_label: Label = $CoinsLabel
 
@@ -61,6 +64,23 @@ func show_game_over() -> void:
 	get_tree().paused = true
 
 func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+func show_victory() -> void:
+	var game := get_tree().current_scene
+	var seconds := int(game.elapsed_time)
+	victory_stats_label.text = "Território conquistado!\n\nDistância: %d m\nTempo: %02d:%02d\nAbates: %d\nMoedas: %d" % [int(game.max_distance), seconds / 60, seconds % 60, game.kills, game.coins]
+	health_label.visible = false
+	kills_label.visible = false
+	time_label.visible = false
+	level_label.visible = false
+	distance_label.visible = false
+	coins_label.visible = false
+	victory_screen.visible = true
+	get_tree().paused = true
+
+func _on_continue_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

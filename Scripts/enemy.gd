@@ -6,6 +6,7 @@ var speed := 150.0
 var health := 2
 var coin_value := 1
 var gem_count := 1
+var is_final_boss := false
 var base_modulate := Color(1, 1, 1)
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
@@ -36,4 +37,6 @@ func die() -> void:
 		gem.global_position = global_position + offset
 		get_parent().call_deferred("add_child", gem)
 	get_tree().current_scene.add_kill(coin_value)
+	if is_final_boss:
+		get_tree().current_scene.get_node("UI").show_victory()
 	queue_free()

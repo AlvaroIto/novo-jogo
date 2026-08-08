@@ -88,7 +88,7 @@ entrou em colapso.
 1. [x] Distância + moedas na UI
 2. [x] Variedade de inimigos + vida dos inimigos
 3. [ ] Chefes (mini-boss aos 250 m, boss aos 500 m)
-4. [ ] Condição de vitória do mapa → acampamento
+4. [x] Condição de vitória do mapa → acampamento
 5. [ ] Acampamento (upgrades permanentes + equipar loot)
 6. [ ] Classes com armas e passivas diferentes
 7. [ ] Sistema de loot com raridade
@@ -117,3 +117,5 @@ entrou em colapso.
 - Variedade de inimigos: normal (2 HP), rápido (1 HP) e tanque (6 HP),
   com recompensas de moedas diferentes
 - Tela de game over com estatísticas e reinício
+- Mini-boss aos 250 m e boss final aos 500 m; derrotar o boss final
+  abre a tela de vitória (o botão levará ao acampamento — item 5)

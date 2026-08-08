@@ -56,9 +56,9 @@ func _process(_delta: float) -> void:
 		_spawn_boss(20, Color(0.7, 0.3, 1), 25)  # mini-boss roxo
 	elif not boss_spawned and game.max_distance >= 500.0:
 		boss_spawned = true
-		_spawn_boss(50, Color(1, 0.85, 0.2), 50)  # boss final dourado
+		_spawn_boss(50, Color(1, 0.85, 0.2), 50, true)  # boss final dourado
 
-func _spawn_boss(hp: int, color: Color, coins: int) -> void:
+func _spawn_boss(hp: int, color: Color, coins: int, is_final := false) -> void:
 	if player == null:
 		return
 	var boss := ENEMY_SCENE.instantiate()
@@ -69,5 +69,6 @@ func _spawn_boss(hp: int, color: Color, coins: int) -> void:
 	boss.gem_count = 5
 	boss.scale = Vector2(2.5, 2.5)
 	boss.modulate = color
+	boss.is_final_boss = is_final
 	add_child(boss)
 	print("Um chefe apareceu!")
