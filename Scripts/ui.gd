@@ -8,12 +8,16 @@ extends CanvasLayer
 @onready var stats_label: Label = $GameOverScreen/VBoxContainer/StatsLabel
 @onready var level_up_screen: ColorRect = $LevelUpScreen
 @onready var level_label: Label = $LevelLabel
+@onready var distance_label: Label = $DistanceLabel
+@onready var coins_label: Label = $CoinsLabel
 
 func _process(_delta: float) -> void:
 	var game := get_tree().current_scene
 	health_label.text = "Vida: %d" % player.health
 	kills_label.text = "Abates: %d" % game.kills
 	level_label.text = "Nível: %d" % player.level
+	distance_label.text = "Distância: %d m" % int(game.max_distance)
+	coins_label.text = "Moedas: %d" % game.coins
 	var seconds := int(game.elapsed_time)
 	time_label.text = "Tempo: %02d:%02d" % [seconds / 60, seconds % 60]
 

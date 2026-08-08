@@ -24,6 +24,23 @@ func _spawn_enemy() -> void:
 	var enemy := ENEMY_SCENE.instantiate()
 	var offset_y := randf_range(-SPAWN_Y_RANGE, SPAWN_Y_RANGE)
 	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
+
+	var roll := randf()
+	if roll < 0.15:
+		# tanque: lento, resistente, vale mais moedas
+		enemy.speed = 70.0
+		enemy.health = 6
+		enemy.coin_value = 5
+		enemy.scale = Vector2(1.5, 1.5)
+		enemy.modulate = Color(1, 0.4, 0.4)
+	elif roll < 0.45:
+		# rapido: fraco, veloz, vale 2 moedas
+		enemy.speed = 280.0
+		enemy.health = 1
+		enemy.coin_value = 2
+		enemy.scale = Vector2(0.8, 0.8)
+		enemy.modulate = Color(0.5, 0.8, 1)
+
 	add_child(enemy)
 
 	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s

@@ -77,7 +77,7 @@ entrou em colapso.
 
 ## Roadmap
 
-1. [ ] Distância + moedas na UI
+1. [x] Distância + moedas na UI
 2. [ ] Variedade de inimigos + vida dos inimigos
 3. [ ] Chefes (mini-boss aos 250 m, boss aos 500 m)
 4. [ ] Condição de vitória do mapa → acampamento
