@@ -8,6 +8,8 @@ const SPAWN_Y_RANGE := 350.0
 
 var current_interval := SPAWN_INTERVAL
 var timer: Timer
+var mini_boss_spawned := false
+var boss_spawned := false
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
 
@@ -46,3 +48,26 @@ func _spawn_enemy() -> void:
 	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
 	current_interval = max(MIN_INTERVAL, current_interval - 0.02)
 	timer.wait_time = current_interval
+
+func _process(_delta: float) -> void:
+	var game := get_tree().current_scene
+	if not mini_boss_spawned and game.max_distance >= 250.0:
+		mini_boss_spawned = true
+		_spawn_boss(20, Color(0.7, 0.3, 1), 25)  # mini-boss roxo
+	elif not boss_spawned and game.max_distance >= 500.0:
+		boss_spawned = true
+		_spawn_boss(50, Color(1, 0.85, 0.2), 50)  # boss final dourado
+
+func _spawn_boss(hp: int, color: Color, coins: int) -> void:
+	if player == null:
+		return
+	var boss := ENEMY_SCENE.instantiate()
+	boss.global_position = player.global_position + Vector2(SPAWN_DISTANCE, 0)
+	boss.speed = 50.0
+	boss.health = hp
+	boss.coin_value = coins
+	boss.gem_count = 5
+	boss.scale = Vector2(2.5, 2.5)
+	boss.modulate = color
+	add_child(boss)
+	print("Um chefe apareceu!")
