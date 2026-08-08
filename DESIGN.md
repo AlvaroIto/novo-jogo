@@ -40,9 +40,17 @@ entrou em colapso.
 - Classes jogáveis diferentes, cada uma com **arma inicial** e
   **bônus passivos** próprios (ex: Samurai, Viking, Espartano, Romano,
   Persa, Egípcio).
-- Armas variadas: espadas, machados, arco e flecha etc.
+- **Cada classe tem seu conjunto de armas temáticas.** Exemplo Samurai:
+  katana (corte em área), shurikens (projéteis), kunai etc.
+- O personagem **inicia com 1 arma** e pode carregar **até 4 armas**
+  ao total (quantidade ainda em avaliação).
 - Todos os personagens podem usar qualquer arma encontrada durante a
   jornada.
+- **Combinação de armas:** duas armas podem ser combinadas para criar
+  uma versão evoluída.
+- **Bônus de afinidade:** usar várias armas da mesma classe concede
+  buffs (ex: Samurai com katana + shuriken ganha bônus de velocidade
+  de ataque).
 - Armas podem ser combinadas/evoluídas com itens e relíquias durante a
   run (builds).
 
@@ -78,7 +86,7 @@ entrou em colapso.
 ## Roadmap
 
 1. [x] Distância + moedas na UI
-2. [ ] Variedade de inimigos + vida dos inimigos
+2. [x] Variedade de inimigos + vida dos inimigos
 3. [ ] Chefes (mini-boss aos 250 m, boss aos 500 m)
 4. [ ] Condição de vitória do mapa → acampamento
 5. [ ] Acampamento (upgrades permanentes + equipar loot)
@@ -99,7 +107,13 @@ entrou em colapso.
 - Movimentação lateral com limite de recuo na base
 - Spawner de inimigos pela direita com dificuldade progressiva
 - Ataque automático com projéteis (mira no inimigo mais próximo)
+- Armas automáticas: corte em área (3 de dano a cada 1,5s num raio de
+  130px) e aura de dano contínuo (1 de dano a cada 0,5s num raio de 100px)
 - Sistema de vida, dano e invencibilidade temporária
-- XP com gemas magnéticas e level up com 3 upgrades
-- UI: vida, abates, tempo e nível
+- XP com gemas magnéticas e level up com 3 upgrades aleatórios de um
+  pool de 6: vida, velocidade, velocidade de ataque, dano do projétil,
+  chance de perfurar e chance de tiro duplo
+- UI: vida, abates, tempo, nível, distância e moedas
+- Variedade de inimigos: normal (2 HP), rápido (1 HP) e tanque (6 HP),
+  com recompensas de moedas diferentes
 - Tela de game over com estatísticas e reinício

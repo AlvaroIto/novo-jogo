@@ -12,6 +12,13 @@ var xp := 0
 var level := 1
 var xp_to_next_level := 5
 var min_x := 0.0
+var projectile_damage := 1
+var pierce_chance := 0.0
+var multi_chance := 0.0
+var slash_damage := 3
+var slash_interval := 1.5
+var slash_range := 130.0
+var slash_timer: Timer
 
 func _ready() -> void:
 	add_to_group("player")
@@ -21,6 +28,11 @@ func _ready() -> void:
 	shoot_timer.autostart = true
 	shoot_timer.timeout.connect(_shoot)
 	add_child(shoot_timer)
+	slash_timer = Timer.new()
+	slash_timer.wait_time = slash_interval
+	slash_timer.autostart = true
+	slash_timer.timeout.connect(_slash)
+	add_child(slash_timer)
 
 func _physics_process(_delta):
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -56,9 +68,17 @@ func _shoot() -> void:
 	var enemy := _get_nearest_enemy()
 	if enemy == null:
 		return
+	var direction := global_position.direction_to(enemy.global_position)
+	_spawn_projectile(direction)
+	if randf() < multi_chance:
+		_spawn_projectile(direction.rotated(0.3))
+
+func _spawn_projectile(direction: Vector2) -> void:
 	var projectile := PROJECTILE_SCENE.instantiate()
 	projectile.global_position = global_position
-	projectile.direction = global_position.direction_to(enemy.global_position)
+	projectile.direction = direction
+	projectile.damage = projectile_damage
+	projectile.pierce = 1 if randf() < pierce_chance else 0
 	get_tree().current_scene.get_node("Projectiles").add_child(projectile)
 
 func _get_nearest_enemy() -> Node2D:
@@ -80,13 +100,43 @@ func gain_xp(amount: int) -> void:
 		xp_to_next_level += 3
 		get_tree().current_scene.get_node("UI").show_level_up()
 
-func upgrade_health() -> void:
-	max_health += 20
-	health = min(health + 20, max_health)
+func _slash() -> void:
+	var enemies := get_tree().get_nodes_in_group("enemies")
+	var hit_any := false
+	for enemy in enemies:
+		if global_position.distance_to(enemy.global_position) <= slash_range:
+			enemy.take_damage(slash_damage)
+			hit_any = true
+	if hit_any:
+		_show_slash_effect()
 
-func upgrade_speed() -> void:
-	speed *= 1.1
+func _show_slash_effect() -> void:
+	var sprite := Sprite2D.new()
+	sprite.texture = preload("res://icon.svg")
+	sprite.modulate = Color(1, 1, 1, 0.6)
+	sprite.scale = Vector2(0.3, 0.3)
+	sprite.z_index = 1
+	sprite.global_position = global_position
+	get_tree().current_scene.add_child(sprite)
+	var tween := sprite.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(sprite, "scale", Vector2(2.2, 2.2), 0.2)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.2)
+	tween.chain().tween_callback(sprite.queue_free)
 
-func upgrade_attack_speed() -> void:
-	shoot_interval *= 0.85
-	shoot_timer.wait_time = shoot_interval
+func apply_upgrade(key: String) -> void:
+	match key:
+		"health":
+			max_health += 20
+			health = min(health + 20, max_health)
+		"speed":
+			speed *= 1.1
+		"attack_speed":
+			shoot_interval *= 0.85
+			shoot_timer.wait_time = shoot_interval
+		"damage":
+			projectile_damage += 1
+		"pierce":
+			pierce_chance += 0.25
+		"multi":
+			multi_chance += 0.20
