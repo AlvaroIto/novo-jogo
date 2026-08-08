@@ -3,7 +3,8 @@ extends Node2D
 const ENEMY_SCENE := preload("res://Scenes/enemy.tscn")
 const SPAWN_INTERVAL := 2.0
 const MIN_INTERVAL := 0.5
-const SPAWN_DISTANCE := 400.0
+const SPAWN_DISTANCE := 650.0
+const SPAWN_Y_RANGE := 350.0
 
 var current_interval := SPAWN_INTERVAL
 var timer: Timer
@@ -21,8 +22,8 @@ func _spawn_enemy() -> void:
 	if player == null:
 		return
 	var enemy := ENEMY_SCENE.instantiate()
-	var angle := randf() * TAU
-	enemy.global_position = player.global_position + Vector2.from_angle(angle) * SPAWN_DISTANCE
+	var offset_y := randf_range(-SPAWN_Y_RANGE, SPAWN_Y_RANGE)
+	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
 	add_child(enemy)
 
 	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
