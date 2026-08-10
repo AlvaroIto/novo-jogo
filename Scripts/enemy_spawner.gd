@@ -24,7 +24,8 @@ func _spawn_enemy() -> void:
 	if player == null:
 		return
 	var enemy := ENEMY_SCENE.instantiate()
-	var offset_y := randf_range(-SPAWN_Y_RANGE, SPAWN_Y_RANGE)
+	# nascem na linha do chão ou acima dela, nunca abaixo
+	var offset_y := randf_range(-SPAWN_Y_RANGE, 0.0)
 	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
 
 	var roll := randf()
