@@ -41,7 +41,7 @@ entrou em colapso.
 
 | Classe | Arma inicial | Passiva | Arma defensiva | Outras armas |
 |---|---|---|---|---|
-| **Samurai** | Katana (corte em área) | +10% velocidade de ataque | Postura de Iai (15% de esquiva) | shuriken (projéteis rápidos), kunai (perfurante) |
+| **Samurai** | Katana (corte em área) | +10% velocidade de ataque | Postura de Iai (15% de esquiva) | yumi (arco longo), naginata (corte frontal de longo alcance) |
 | **Viking** | Grito de Guerra (aura) | **Berserker**: quanto menos vida, mais dano (até +50%) | Sede de Sangue (roubo de vida: cura % do dano causado) | machado pesado (corte lento e forte), escudo orbital |
 | **Espartano** | Pílum (projétil) | +1 dano em projéteis | Escudo de Bronze (reduz dano recebido em 20%) | formação de lanças (corte frontal), escudo orbital |
 
@@ -58,6 +58,8 @@ entrou em colapso.
 
 ### Classes futuras (próximos biomas)
 
+- **Ninja:** shuriken (projéteis rápidos), kunai (perfurante), bomba de
+  fumaça — armas furtivas do Japão Feudal
 - **Persa:** arco (projéteis velozes)
 - **Egípcio:** magia de areia (aura maior)
 - **Romano:** gládio + scutum
