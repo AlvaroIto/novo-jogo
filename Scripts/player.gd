@@ -1,42 +1,67 @@
 extends CharacterBody2D
 
-const PROJECTILE_SCENE := preload("res://Scenes/projectile.tscn")
+const WEAPON_SCENES := {
+	"projectile": preload("res://Scenes/weapons/projectile_weapon.tscn"),
+	"slash": preload("res://Scenes/weapons/slash_weapon.tscn"),
+	"aura": preload("res://Scenes/weapons/aura_weapon.tscn"),
+}
 
 var max_health := 100
 var health := 100
 var invincible := false
 var speed := 300.0
-var shoot_interval := 1.0
-var shoot_timer: Timer
+var min_x := 0.0
 var xp := 0
 var level := 1
 var xp_to_next_level := 5
-var min_x := 0.0
+
+# stats das armas
 var projectile_damage := 1
 var pierce_chance := 0.0
 var multi_chance := 0.0
+var double_attack_chance := 0.0
+var shoot_interval := 1.0
 var slash_damage := 3
 var slash_interval := 1.5
 var slash_range := 130.0
-var slash_timer: Timer
+var aura_damage := 1
+var aura_interval := 0.5
+
+var berserker := false
+var weapon_keys: Array = []
 
 func _ready() -> void:
 	add_to_group("player")
+	_apply_camp_upgrades()
+	_apply_class(GameData.selected_class)
+	min_x = global_position.x
+
+func _apply_camp_upgrades() -> void:
 	max_health += GameData.upgrade_health * 10
 	health = max_health
 	projectile_damage += GameData.upgrade_damage
 	speed *= 1.0 + GameData.upgrade_speed * 0.05
-	min_x = global_position.x
-	shoot_timer = Timer.new()
-	shoot_timer.wait_time = shoot_interval
-	shoot_timer.autostart = true
-	shoot_timer.timeout.connect(_shoot)
-	add_child(shoot_timer)
-	slash_timer = Timer.new()
-	slash_timer.wait_time = slash_interval
-	slash_timer.autostart = true
-	slash_timer.timeout.connect(_slash)
-	add_child(slash_timer)
+
+func _apply_class(class_key: String) -> void:
+	var data: Dictionary = GameData.CLASSES[class_key]
+	match data.passive:
+		"attack_speed":
+			shoot_interval /= 1.1
+			slash_interval /= 1.1
+			aura_interval /= 1.1
+		"berserker":
+			berserker = true
+		"projectile_damage":
+			projectile_damage += 1
+	var weapon: Node = WEAPON_SCENES[data.weapon].instantiate()
+	add_child(weapon)
+	weapon_keys.append(data.weapon)
+
+func get_damage_multiplier() -> float:
+	if not berserker:
+		return 1.0
+	var missing := 1.0 - float(health) / float(max_health)
+	return 1.0 + missing * 0.5
 
 func _physics_process(_delta):
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -68,34 +93,6 @@ func _take_damage(amount: int) -> void:
 func _game_over() -> void:
 	get_tree().current_scene.get_node("UI").show_game_over()
 
-func _shoot() -> void:
-	var enemy := _get_nearest_enemy()
-	if enemy == null:
-		return
-	var direction := global_position.direction_to(enemy.global_position)
-	_spawn_projectile(direction)
-	if randf() < multi_chance:
-		_spawn_projectile(direction.rotated(0.3))
-
-func _spawn_projectile(direction: Vector2) -> void:
-	var projectile := PROJECTILE_SCENE.instantiate()
-	projectile.global_position = global_position
-	projectile.direction = direction
-	projectile.damage = projectile_damage
-	projectile.pierce = 1 if randf() < pierce_chance else 0
-	get_tree().current_scene.get_node("Projectiles").add_child(projectile)
-
-func _get_nearest_enemy() -> Node2D:
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	var nearest: Node2D = null
-	var nearest_distance := INF
-	for enemy in enemies:
-		var distance := global_position.distance_to(enemy.global_position)
-		if distance < nearest_distance:
-			nearest = enemy
-			nearest_distance = distance
-	return nearest
-
 func gain_xp(amount: int) -> void:
 	xp += amount
 	if xp >= xp_to_next_level:
@@ -103,30 +100,6 @@ func gain_xp(amount: int) -> void:
 		level += 1
 		xp_to_next_level += 3
 		get_tree().current_scene.get_node("UI").show_level_up()
-
-func _slash() -> void:
-	var enemies := get_tree().get_nodes_in_group("enemies")
-	var hit_any := false
-	for enemy in enemies:
-		if global_position.distance_to(enemy.global_position) <= slash_range:
-			enemy.take_damage(slash_damage)
-			hit_any = true
-	if hit_any:
-		_show_slash_effect()
-
-func _show_slash_effect() -> void:
-	var sprite := Sprite2D.new()
-	sprite.texture = preload("res://icon.svg")
-	sprite.modulate = Color(1, 1, 1, 0.6)
-	sprite.scale = Vector2(0.3, 0.3)
-	sprite.z_index = 1
-	sprite.global_position = global_position
-	get_tree().current_scene.add_child(sprite)
-	var tween := sprite.create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(sprite, "scale", Vector2(2.2, 2.2), 0.2)
-	tween.tween_property(sprite, "modulate:a", 0.0, 0.2)
-	tween.chain().tween_callback(sprite.queue_free)
 
 func apply_upgrade(key: String) -> void:
 	match key:
@@ -137,10 +110,23 @@ func apply_upgrade(key: String) -> void:
 			speed *= 1.1
 		"attack_speed":
 			shoot_interval *= 0.85
-			shoot_timer.wait_time = shoot_interval
+			slash_interval *= 0.85
+			aura_interval *= 0.85
+			for weapon in get_tree().get_nodes_in_group("weapons"):
+				weapon.update_interval()
 		"damage":
 			projectile_damage += 1
-		"pierce":
-			pierce_chance += 0.25
-		"multi":
-			multi_chance += 0.20
+			slash_damage += 1
+			aura_damage += 1
+		"special_a":
+			if "projectile" in weapon_keys:
+				pierce_chance += 0.25
+			else:
+				for weapon in get_tree().get_nodes_in_group("weapons"):
+					if weapon.has_method("apply_range_bonus"):
+						weapon.apply_range_bonus(1.25)
+		"special_b":
+			if "projectile" in weapon_keys:
+				multi_chance += 0.20
+			else:
+				double_attack_chance += 0.20

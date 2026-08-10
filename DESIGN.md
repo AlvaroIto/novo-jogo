@@ -115,7 +115,7 @@ entrou em colapso.
 3. [x] Chefes (mini-boss aos 250 m, boss aos 500 m)
 4. [x] Condição de vitória do mapa → acampamento
 5. [x] Acampamento (upgrades permanentes + equipar loot)
-6. [ ] Classes com armas, defensivas e passivas diferentes
+6. [x] Classes com armas, defensivas e passivas diferentes
 7. [ ] Sistema de efeitos de status (sangramento, veneno, queimadura,
    congelamento) + contramedidas
 8. [ ] Sistema de loot com raridade
@@ -150,3 +150,10 @@ entrou em colapso.
   compram upgrades permanentes (vida, dano, velocidade) com custo
   crescente; o jogo inicia no acampamento (equipar loot virá com o
   sistema de loot)
+- Armas modulares (cenas próprias): projétil, corte e aura
+- 3 classes jogáveis com seleção no acampamento: Samurai (katana/corte,
+  +10% velocidade de ataque), Viking (aura, Berserker) e Espartano
+  (projétil, +1 dano em projéteis). Armas defensivas e armas extras de
+  cada classe virão com os próximos sistemas
+- Upgrades especiais adaptáveis por classe: projétil ganha
+  perfurar/tiro duplo; corte e aura ganham alcance/ataque duplo

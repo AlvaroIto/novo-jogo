@@ -6,6 +6,28 @@ var total_coins := 0
 var upgrade_health := 0
 var upgrade_damage := 0
 var upgrade_speed := 0
+var selected_class := "samurai"
+
+const CLASSES := {
+	"samurai": {
+		"name": "Samurai",
+		"weapon": "slash",
+		"passive": "attack_speed",
+		"description": "+10% velocidade de ataque",
+	},
+	"viking": {
+		"name": "Viking",
+		"weapon": "aura",
+		"passive": "berserker",
+		"description": "Berserker: menos vida, mais dano",
+	},
+	"espartano": {
+		"name": "Espartano",
+		"weapon": "projectile",
+		"passive": "projectile_damage",
+		"description": "+1 dano em projéteis",
+	},
+}
 
 const BASE_COSTS := {
 	"health": 20,

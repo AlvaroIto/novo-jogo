@@ -18,9 +18,9 @@ const UPGRADES := {
 	"health": "+20 Vida Máxima",
 	"speed": "+10% Velocidade",
 	"attack_speed": "+15% Velocidade de Ataque",
-	"damage": "+1 Dano do Projétil",
-	"pierce": "+25% Chance de Perfurar",
-	"multi": "+20% Chance de Tiro Duplo",
+	"damage": "+1 Dano (todas as armas)",
+	"special_a": "",
+	"special_b": "",
 }
 
 var current_upgrades: Array = []
@@ -45,9 +45,21 @@ func show_level_up() -> void:
 	keys.shuffle()
 	current_upgrades = keys.slice(0, 3)
 	for i in 3:
-		upgrade_buttons[i].text = UPGRADES[current_upgrades[i]]
+		upgrade_buttons[i].text = _get_upgrade_text(current_upgrades[i])
 	level_up_screen.visible = true
 	get_tree().paused = true
+
+func _get_upgrade_text(key: String) -> String:
+	match key:
+		"special_a":
+			if "projectile" in player.weapon_keys:
+				return "+25% Chance de Perfurar"
+			return "+25% Alcance da Arma"
+		"special_b":
+			if "projectile" in player.weapon_keys:
+				return "+20% Chance de Tiro Duplo"
+			return "+20% Chance de Ataque Duplo"
+	return UPGRADES[key]
 
 func _close_level_up() -> void:
 	level_up_screen.visible = false
