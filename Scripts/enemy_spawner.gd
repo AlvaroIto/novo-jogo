@@ -23,28 +23,79 @@ func _ready() -> void:
 func _spawn_enemy() -> void:
 	if player == null:
 		return
+	var game := get_tree().current_scene
+	var type := _pick_enemy_type(game.max_distance)
 	var enemy := ENEMY_SCENE.instantiate()
+
 	# nascem na linha do chão ou acima dela, nunca abaixo
 	var offset_y := randf_range(-SPAWN_Y_RANGE, 0.0)
+	if type == "tengu":
+		offset_y = randf_range(-350.0, -200.0)
 	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
 
-	var roll := randf()
-	if roll < 0.15:
-		# tanque: lento, resistente, vale mais moedas
-		enemy.speed = 70.0
-		enemy.health = 6
-		enemy.coin_value = 5
-		enemy.scale = Vector2(1.5, 1.5)
-		enemy.modulate = Color(1, 0.4, 0.4)
-	elif roll < 0.45:
-		# rapido: fraco, veloz, vale 2 moedas
-		enemy.speed = 280.0
-		enemy.health = 1
-		enemy.coin_value = 2
-		enemy.scale = Vector2(0.8, 0.8)
-		enemy.modulate = Color(0.5, 0.8, 1)
-
+	_apply_type(enemy, type)
 	add_child(enemy)
+
+func _pick_enemy_type(distance: float) -> String:
+	var roll := randf()
+	if distance < 100.0:
+		return "normal"
+	if distance < 250.0:
+		return "normal" if roll < 0.7 else "fast"
+	if distance < 400.0:
+		if roll < 0.40:
+			return "normal"
+		elif roll < 0.65:
+			return "fast"
+		elif roll < 0.85:
+			return "tank"
+		else:
+			return "tengu"
+	if roll < 0.25:
+		return "normal"
+	elif roll < 0.50:
+		return "fast"
+	elif roll < 0.65:
+		return "tank"
+	elif roll < 0.80:
+		return "tengu"
+	elif roll < 0.92:
+		return "bomber"
+	else:
+		return "archer"
+
+func _apply_type(enemy: Node, type: String) -> void:
+	match type:
+		"tank":
+			enemy.speed = 70.0
+			enemy.health = 6
+			enemy.coin_value = 5
+			enemy.scale = Vector2(1.5, 1.5)
+			enemy.modulate = Color(1, 0.4, 0.4)
+		"fast":
+			enemy.speed = 280.0
+			enemy.health = 1
+			enemy.coin_value = 2
+			enemy.scale = Vector2(0.8, 0.8)
+			enemy.modulate = Color(0.5, 0.8, 1)
+		"tengu":
+			enemy.speed = 220.0
+			enemy.health = 1
+			enemy.coin_value = 2
+			enemy.scale = Vector2(0.9, 0.9)
+			enemy.modulate = Color(0.6, 0.4, 1)
+		"bomber":
+			enemy.speed = 240.0
+			enemy.health = 1
+			enemy.coin_value = 3
+			enemy.modulate = Color(1, 0.6, 0.1)
+			enemy.explosive = true
+		"archer":
+			enemy.speed = 100.0
+			enemy.health = 2
+			enemy.coin_value = 4
+			enemy.modulate = Color(0.4, 0.7, 0.4)
+			enemy.archer = true
 
 	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
 	current_interval = max(MIN_INTERVAL, current_interval - 0.02)

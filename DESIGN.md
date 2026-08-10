@@ -102,6 +102,23 @@ entrou em colapso.
 - Nível / barra de XP
 - Vida
 
+## Inimigos (bioma Japão Feudal)
+
+| Inimigo | Comportamento |
+|---|---|
+| Normal | persegue o jogador (2 HP, velocidade 150) |
+| Rápido | fraco e veloz (1 HP, velocidade 280) |
+| Tanque | lento e resistente (6 HP, velocidade 70) |
+| 🦇 Tengu | nasce acima da linha do chão e mergulha no jogador |
+| 💣 Bombardeiro | corre e explode ao se aproximar (15 de dano); se explodir, não dá recompensa |
+| 🏹 Arqueiro | para a 300px e atira flechas lentas (5 de dano); flechas podem ser destruídas por corte, aura ou projéteis |
+
+**Tabela de spawn por distância:** 0–100 m só normais · 100–250 m +
+rápidos · 250–400 m + tanques e tengus · 400 m+ todos misturados.
+
+**Adiados:** Escudeiro (escudo quebra após golpes frontais — repensar
+junto com sinergias de classe) e escala de HP por distância.
+
 ## Chefes
 
 - Cada bioma tem **chefes únicos** (ex: Shogun Corrompido, Faraó

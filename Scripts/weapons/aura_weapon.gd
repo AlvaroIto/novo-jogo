@@ -6,6 +6,7 @@ var timer: Timer
 func _ready() -> void:
 	player = get_parent()
 	add_to_group("weapons")
+	area_entered.connect(_on_area_entered)
 	timer = Timer.new()
 	timer.wait_time = player.aura_interval
 	timer.autostart = true
@@ -28,3 +29,7 @@ func _tick() -> void:
 	for body in get_overlapping_bodies():
 		if body.is_in_group("enemies"):
 			body.take_damage(damage)
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_projectiles"):
+		area.queue_free()

@@ -33,6 +33,10 @@ func _strike() -> void:
 		if player.global_position.distance_to(enemy.global_position) <= player.slash_range:
 			enemy.take_damage(damage)
 			hit_any = true
+	for arrow in get_tree().get_nodes_in_group("enemy_projectiles"):
+		if player.global_position.distance_to(arrow.global_position) <= player.slash_range:
+			arrow.queue_free()
+			hit_any = true
 	if hit_any:
 		_show_effect()
 
