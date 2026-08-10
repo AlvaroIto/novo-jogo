@@ -37,22 +37,45 @@ entrou em colapso.
 
 ## Classes e armas
 
-- Classes jogáveis diferentes, cada uma com **arma inicial** e
-  **bônus passivos** próprios (ex: Samurai, Viking, Espartano, Romano,
-  Persa, Egípcio).
-- **Cada classe tem seu conjunto de armas temáticas.** Exemplo Samurai:
-  katana (corte em área), shurikens (projéteis), kunai etc.
-- O personagem **inicia com 1 arma** e pode carregar **até 4 armas**
-  ao total (quantidade ainda em avaliação).
-- Todos os personagens podem usar qualquer arma encontrada durante a
-  jornada.
-- **Combinação de armas:** duas armas podem ser combinadas para criar
-  uma versão evoluída.
-- **Bônus de afinidade:** usar várias armas da mesma classe concede
-  buffs (ex: Samurai com katana + shuriken ganha bônus de velocidade
-  de ataque).
-- Armas podem ser combinadas/evoluídas com itens e relíquias durante a
-  run (builds).
+### Classes iniciais
+
+| Classe | Arma inicial | Passiva | Arma defensiva | Outras armas |
+|---|---|---|---|---|
+| **Samurai** | Katana (corte em área) | +10% velocidade de ataque | Postura de Iai (15% de esquiva) | shuriken (projéteis rápidos), kunai (perfurante) |
+| **Viking** | Grito de Guerra (aura) | **Berserker**: quanto menos vida, mais dano (até +50%) | Sede de Sangue (roubo de vida: cura % do dano causado) | machado pesado (corte lento e forte), escudo orbital |
+| **Espartano** | Pílum (projétil) | +1 dano em projéteis | Escudo de Bronze (reduz dano recebido em 20%) | formação de lanças (corte frontal), escudo orbital |
+
+### Regras
+
+- O personagem **inicia com 1 arma** e pode carregar **até 4** na run
+  (quantidade em avaliação); armas defensivas contam nesse limite.
+- Qualquer classe pode usar qualquer arma, mas armas da própria classe
+  recebem **+25% de dano (bônus de afinidade)**.
+- **Combinação de armas:** duas armas evoluídas podem ser combinadas
+  em uma versão especial.
+- Futuro: segunda passiva desbloqueável ao completar o mapa da
+  civilização da classe.
+
+### Classes futuras (próximos biomas)
+
+- **Persa:** arco (projéteis velozes)
+- **Egípcio:** magia de areia (aura maior)
+- **Romano:** gládio + scutum
+
+## Efeitos de status (DoT e debuffs)
+
+- 🩸 **Sangramento:** dano contínuo que acumula (stacks)
+- 🧪 **Veneno:** dano contínuo, mais forte em inimigos com muita vida
+- 🔥 **Queimadura:** dano contínuo explosivo (mais dano, menos duração)
+- ❄️ **Congelamento:** inimigo fica mais lento (ou paralisado)
+
+### Contramedidas
+
+- **Chefes têm resistência a status** — congelamento dura metade e
+  DoTs causam dano reduzido (para status não trivializarem chefes).
+- **Jogador:** itens/upgrades de purificação (remove debuff),
+  resistência elemental em equipamentos e imunidade temporária após
+  um debuff terminar.
 
 ## Sistema de loot (estilo ARPG / Path of Exile)
 
@@ -87,14 +110,16 @@ entrou em colapso.
 
 1. [x] Distância + moedas na UI
 2. [x] Variedade de inimigos + vida dos inimigos
-3. [ ] Chefes (mini-boss aos 250 m, boss aos 500 m)
+3. [x] Chefes (mini-boss aos 250 m, boss aos 500 m)
 4. [x] Condição de vitória do mapa → acampamento
 5. [x] Acampamento (upgrades permanentes + equipar loot)
-6. [ ] Classes com armas e passivas diferentes
-7. [ ] Sistema de loot com raridade
-8. [ ] Novos biomas/mapas
-9. [ ] Modo infinito
-10. [ ] Áudio (música, efeitos de tiro, dano)
+6. [ ] Classes com armas, defensivas e passivas diferentes
+7. [ ] Sistema de efeitos de status (sangramento, veneno, queimadura,
+   congelamento) + contramedidas
+8. [ ] Sistema de loot com raridade
+9. [ ] Novos biomas/mapas
+10. [ ] Modo infinito
+11. [ ] Áudio (música, efeitos de tiro, dano)
 
 ## Ideias em aberto
 
