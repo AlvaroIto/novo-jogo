@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x144juqt2ss2"
-path="res://.godot/imported/bg_moon.png-fd43da8acff7df47cb1fb2a38b4cf22d.ctex"
+uid="uid://ycr02tnuf28f"
+path="res://.godot/imported/xp_gem.png-fd829428dac4082e1cd6f692dc967a4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/bg_moon.png"
-dest_files=["res://.godot/imported/bg_moon.png-fd43da8acff7df47cb1fb2a38b4cf22d.ctex"]
+source_file="res://Sprites/xp_gem.png"
+dest_files=["res://.godot/imported/xp_gem.png-fd829428dac4082e1cd6f692dc967a4b.ctex"]
 
 [params]
 

@@ -5,41 +5,36 @@
 [ext_resource type="Script" uid="uid://bgofff8ttqyh" path="res://Scripts/enemy_spawner.gd" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://omkksnfkc7g3" path="res://Scripts/ui.gd" id="4_3dryh"]
 [ext_resource type="Texture2D" path="res://Sprites/bg_sky.png" id="5_sky"]
-[ext_resource type="Texture2D" path="res://Sprites/bg_moon.png" id="6_moon"]
-[ext_resource type="Texture2D" path="res://Sprites/bg_branches.png" id="7_branches"]
+[ext_resource type="Texture2D" path="res://Sprites/bg_far.png" id="6_far"]
+[ext_resource type="Texture2D" path="res://Sprites/ground.png" id="7_ground"]
+[ext_resource type="Texture2D" path="res://Sprites/coin.png" id="8_coin"]
 
 [node name="Game" type="Node2D" unique_id=1868896112]
 script = ExtResource("1_wrm1d")
 
-[node name="Background" type="CanvasLayer" parent="." unique_id=900000020]
-layer = -1
+[node name="Background" type="ParallaxBackground" parent="." unique_id=900000020]
 
-[node name="Sky" type="TextureRect" parent="Background" unique_id=900000021]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SkyLayer" type="ParallaxLayer" parent="Background" unique_id=900000021]
+motion_scale = Vector2(0, 0)
+
+[node name="Sky" type="Sprite2D" parent="Background/SkyLayer" unique_id=900000022]
+position = Vector2(576, 324)
 texture = ExtResource("5_sky")
-expand_mode = 1
 
-[node name="Moon" type="TextureRect" parent="Background" unique_id=900000022]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_moon")
-expand_mode = 1
+[node name="FarLayer" type="ParallaxLayer" parent="Background" unique_id=900000023]
+motion_scale = Vector2(0.4, 0)
+motion_mirroring = Vector2(1152, 0)
 
-[node name="Branches" type="TextureRect" parent="Background" unique_id=900000023]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_branches")
-expand_mode = 1
+[node name="Far" type="Sprite2D" parent="Background/FarLayer" unique_id=900000024]
+position = Vector2(576, -40)
+texture = ExtResource("6_far")
+
+[node name="GroundLayer" type="ParallaxLayer" parent="Background" unique_id=900000025]
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Ground" type="Sprite2D" parent="Background/GroundLayer" unique_id=900000026]
+position = Vector2(576, 56)
+texture = ExtResource("7_ground")
 
 [node name="World" type="Node2D" parent="." unique_id=478076849]
 
@@ -105,6 +100,19 @@ offset_bottom = 73.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2
+
+[node name="CoinIcon" type="TextureRect" parent="UI" unique_id=900000030]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = 50.0
+offset_right = -226.0
+offset_bottom = 74.0
+grow_horizontal = 0
+texture = ExtResource("8_coin")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="GameOverScreen" type="ColorRect" parent="UI" unique_id=649889038]
 visible = false

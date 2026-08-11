@@ -182,3 +182,5 @@ junto com sinergias de classe).
   perfurar/tiro duplo; corte e aura ganham alcance/ataque duplo
 - Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
   mini-boss, boss final e flecha dos arqueiros
+- Cenário em camadas com parallax (céu fixo, horizonte e chão com
+  repetição), gema de XP, efeito de corte e ícone de moeda com arte
