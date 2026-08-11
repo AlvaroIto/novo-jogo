@@ -4,9 +4,42 @@
 [ext_resource type="Script" uid="uid://dn2xfqgvg43p0" path="res://Scripts/game.gd" id="1_wrm1d"]
 [ext_resource type="Script" uid="uid://bgofff8ttqyh" path="res://Scripts/enemy_spawner.gd" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://omkksnfkc7g3" path="res://Scripts/ui.gd" id="4_3dryh"]
+[ext_resource type="Texture2D" path="res://Sprites/bg_sky.png" id="5_sky"]
+[ext_resource type="Texture2D" path="res://Sprites/bg_moon.png" id="6_moon"]
+[ext_resource type="Texture2D" path="res://Sprites/bg_branches.png" id="7_branches"]
 
 [node name="Game" type="Node2D" unique_id=1868896112]
 script = ExtResource("1_wrm1d")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=900000020]
+layer = -1
+
+[node name="Sky" type="TextureRect" parent="Background" unique_id=900000021]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sky")
+expand_mode = 1
+
+[node name="Moon" type="TextureRect" parent="Background" unique_id=900000022]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_moon")
+expand_mode = 1
+
+[node name="Branches" type="TextureRect" parent="Background" unique_id=900000023]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_branches")
+expand_mode = 1
 
 [node name="World" type="Node2D" parent="." unique_id=478076849]
 
