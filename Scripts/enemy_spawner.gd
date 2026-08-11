@@ -1,6 +1,9 @@
 extends Node2D
 
 const ENEMY_SCENE := preload("res://Scenes/enemy.tscn")
+const ARCHER_TEX := preload("res://Sprites/enemy_archer.png")
+const BOSS_MINI_TEX := preload("res://Sprites/boss_mini.png")
+const BOSS_FINAL_TEX := preload("res://Sprites/boss_final.png")
 const SPAWN_INTERVAL := 2.0
 const MIN_INTERVAL := 0.5
 const SPAWN_DISTANCE := 650.0
@@ -34,35 +37,49 @@ func _spawn_enemy() -> void:
 	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
 
 	_apply_type(enemy, type)
+
+	# escala suave de HP: +1 a cada 200 m
+	enemy.health += int(game.max_distance / 200.0)
+
 	add_child(enemy)
 
 func _pick_enemy_type(distance: float) -> String:
 	var roll := randf()
 	if distance < 100.0:
 		return "normal"
-	if distance < 250.0:
-		return "normal" if roll < 0.7 else "fast"
+	if distance < 200.0:
+		if roll < 0.05:
+			return _pick_special()  # gotejamento: novos tipos raros
+		return "normal" if roll < 0.72 else "fast"
 	if distance < 400.0:
-		if roll < 0.40:
+		if roll < 0.35:
 			return "normal"
-		elif roll < 0.65:
+		elif roll < 0.57:
 			return "fast"
-		elif roll < 0.85:
+		elif roll < 0.72:
 			return "tank"
-		else:
+		elif roll < 0.82:
 			return "tengu"
-	if roll < 0.25:
+		elif roll < 0.90:
+			return "bomber"
+		else:
+			return "archer"
+	if roll < 0.20:
 		return "normal"
-	elif roll < 0.50:
+	elif roll < 0.40:
 		return "fast"
-	elif roll < 0.65:
+	elif roll < 0.55:
 		return "tank"
-	elif roll < 0.80:
+	elif roll < 0.70:
 		return "tengu"
-	elif roll < 0.92:
+	elif roll < 0.85:
 		return "bomber"
 	else:
 		return "archer"
+
+func _pick_special() -> String:
+	var specials := ["tengu", "bomber", "archer"]
+	return specials[randi() % specials.size()]
 
 func _apply_type(enemy: Node, type: String) -> void:
 	match type:
@@ -94,7 +111,8 @@ func _apply_type(enemy: Node, type: String) -> void:
 			enemy.speed = 100.0
 			enemy.health = 2
 			enemy.coin_value = 4
-			enemy.modulate = Color(0.4, 0.7, 0.4)
+			enemy.modulate = Color(1, 1, 1)
+			enemy.sprite_texture = ARCHER_TEX
 			enemy.archer = true
 
 	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
@@ -121,6 +139,7 @@ func _spawn_boss(hp: int, color: Color, coins: int, is_final := false) -> void:
 	boss.gem_count = 5
 	boss.scale = Vector2(2.5, 2.5)
 	boss.modulate = color
+	boss.sprite_texture = BOSS_FINAL_TEX if is_final else BOSS_MINI_TEX
 	boss.is_final_boss = is_final
 	add_child(boss)
 	print("Um chefe apareceu!")

@@ -12,12 +12,17 @@ var base_modulate := Color(1, 1, 1)
 var explosive := false
 var archer := false
 var arrow_timer: Timer
+var sprite_texture: Texture2D = null
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
 
 func _ready() -> void:
 	add_to_group("enemies")
 	base_modulate = modulate
+	if sprite_texture != null:
+		$Sprite2D.texture = sprite_texture
+		$Sprite2D.scale = Vector2(0.35, 0.35)
+		$Sprite2D.flip_h = true
 	if archer:
 		arrow_timer = Timer.new()
 		arrow_timer.wait_time = 2.5

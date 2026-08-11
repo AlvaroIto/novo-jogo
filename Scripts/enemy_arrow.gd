@@ -6,6 +6,7 @@ var direction := Vector2.LEFT
 
 func _ready() -> void:
 	add_to_group("enemy_projectiles")
+	rotation = direction.angle()
 	var timer := Timer.new()
 	timer.wait_time = 5.0
 	timer.one_shot = true

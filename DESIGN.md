@@ -113,11 +113,15 @@ entrou em colapso.
 | 💣 Bombardeiro | corre e explode ao se aproximar (15 de dano); se explodir, não dá recompensa |
 | 🏹 Arqueiro | para a 300px e atira flechas lentas (5 de dano); flechas podem ser destruídas por corte, aura ou projéteis |
 
-**Tabela de spawn por distância:** 0–100 m só normais · 100–250 m +
-rápidos · 250–400 m + tanques e tengus · 400 m+ todos misturados.
+**Tabela de spawn por distância:** 0–100 m só normais · 100–200 m +
+rápidos, com tengu/bombardeiro/arqueiro raros (5% — gotejamento) ·
+200–400 m mistura crescente · 400 m+ mistura total.
+
+**Escala suave de HP:** inimigos comuns ganham +1 HP a cada 200 m
+(chefes não são afetados).
 
 **Adiados:** Escudeiro (escudo quebra após golpes frontais — repensar
-junto com sinergias de classe) e escala de HP por distância.
+junto com sinergias de classe).
 
 ## Chefes
 
@@ -144,6 +148,8 @@ junto com sinergias de classe) e escala de HP por distância.
 
 - Knockback ao tomar dano (empurrão para a esquerda)
 - Movimentação no eixo Y (voar ou plataformas)
+- Pressão dinâmica de spawn: se o jogador estiver matando rápido
+  demais, o spawn acelera (para o balanceamento futuro)
 - Imagem de conceito: `Docs/conceito.png`
 
 ## Implementado
@@ -174,3 +180,5 @@ junto com sinergias de classe) e escala de HP por distância.
   cada classe virão com os próximos sistemas
 - Upgrades especiais adaptáveis por classe: projétil ganha
   perfurar/tiro duplo; corte e aura ganham alcance/ataque duplo
+- Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
+  mini-boss, boss final e flecha dos arqueiros
