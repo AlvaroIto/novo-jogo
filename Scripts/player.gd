@@ -10,7 +10,7 @@ const WEAPON_SCENES := {
 const CLASS_SPRITES := {
 	"samurai": preload("res://Sprites/player_samurai.png"),
 }
-const CLASS_SPRITE_SCALE := Vector2(0.35, 0.35)
+const CLASS_SPRITE_SCALE := Vector2(0.5, 0.5)
 
 var max_health := 100
 var health := 100

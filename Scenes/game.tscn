@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bgofff8ttqyh" path="res://Scripts/enemy_spawner.gd" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://omkksnfkc7g3" path="res://Scripts/ui.gd" id="4_3dryh"]
 [ext_resource type="Texture2D" path="res://Sprites/bg_sky.png" id="5_sky"]
-[ext_resource type="Texture2D" path="res://Sprites/bg_far.png" id="6_far"]
 [ext_resource type="Texture2D" path="res://Sprites/ground.png" id="7_ground"]
 [ext_resource type="Texture2D" path="res://Sprites/coin.png" id="8_coin"]
 
@@ -20,14 +19,6 @@ motion_scale = Vector2(0, 0)
 [node name="Sky" type="Sprite2D" parent="Background/SkyLayer" unique_id=900000022]
 position = Vector2(576, 324)
 texture = ExtResource("5_sky")
-
-[node name="FarLayer" type="ParallaxLayer" parent="Background" unique_id=900000023]
-motion_scale = Vector2(0.4, 0)
-motion_mirroring = Vector2(1152, 0)
-
-[node name="Far" type="Sprite2D" parent="Background/FarLayer" unique_id=900000024]
-position = Vector2(576, -40)
-texture = ExtResource("6_far")
 
 [node name="GroundLayer" type="ParallaxLayer" parent="Background" unique_id=900000025]
 motion_mirroring = Vector2(1152, 0)
