@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://Scripts/weapons/aura_weapon.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://53tqf5dxsj8a" path="res://icon.svg" id="2"]
+[ext_resource type="Texture2D" path="res://Sprites/aura.png" id="2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aura"]
 radius = 100.0
@@ -13,6 +13,5 @@ script = ExtResource("1")
 shape = SubResource("CircleShape2D_aura")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.8, 0.2, 0.25)
-scale = Vector2(1.6, 1.6)
+scale = Vector2(0.28, 0.28)
 texture = ExtResource("2")

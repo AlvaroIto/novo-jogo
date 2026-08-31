@@ -8,6 +8,7 @@ var pierce := 0
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
+	rotation = direction.angle()
 
 func _physics_process(delta: float) -> void:
 	position += direction * SPEED * delta

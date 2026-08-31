@@ -13,6 +13,7 @@ var explosive := false
 var archer := false
 var arrow_timer: Timer
 var sprite_texture: Texture2D = null
+var sprite_scale := 0.35
 
 @onready var player: Node2D = get_tree().get_first_node_in_group("player")
 
@@ -21,7 +22,7 @@ func _ready() -> void:
 	base_modulate = modulate
 	if sprite_texture != null:
 		$Sprite2D.texture = sprite_texture
-		$Sprite2D.scale = Vector2(0.35, 0.35)
+		$Sprite2D.scale = Vector2(sprite_scale, sprite_scale)
 		$Sprite2D.flip_h = true
 	if archer:
 		arrow_timer = Timer.new()

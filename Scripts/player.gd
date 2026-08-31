@@ -6,11 +6,12 @@ const WEAPON_SCENES := {
 	"aura": preload("res://Scenes/weapons/aura_weapon.tscn"),
 }
 
-# sprites por classe (adicionar viking/espartano quando a arte chegar)
+# sprites por classe (arte nova é maior, então cada uma tem sua escala)
 const CLASS_SPRITES := {
-	"samurai": preload("res://Sprites/player_samurai.png"),
+	"samurai": {"texture": preload("res://Sprites/player_samurai.png"), "scale": Vector2(0.5, 0.5)},
+	"viking": {"texture": preload("res://Sprites/player_viking.png"), "scale": Vector2(0.15, 0.15)},
+	"espartano": {"texture": preload("res://Sprites/player_espartano.png"), "scale": Vector2(0.15, 0.15)},
 }
-const CLASS_SPRITE_SCALE := Vector2(0.5, 0.5)
 
 var max_health := 100
 var health := 100
@@ -63,8 +64,8 @@ func _apply_class(class_key: String) -> void:
 	add_child(weapon)
 	weapon_keys.append(data.weapon)
 	if CLASS_SPRITES.has(class_key):
-		$Sprite2D.texture = CLASS_SPRITES[class_key]
-		$Sprite2D.scale = CLASS_SPRITE_SCALE
+		$Sprite2D.texture = CLASS_SPRITES[class_key].texture
+		$Sprite2D.scale = CLASS_SPRITES[class_key].scale
 
 func get_damage_multiplier() -> float:
 	if not berserker:

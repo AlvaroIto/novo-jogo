@@ -1,6 +1,11 @@
 extends Node2D
 
 const ENEMY_SCENE := preload("res://Scenes/enemy.tscn")
+const NORMAL_TEX := preload("res://Sprites/enemy_normal.png")
+const FAST_TEX := preload("res://Sprites/enemy_fast.png")
+const TANK_TEX := preload("res://Sprites/enemy_tank.png")
+const TENGU_TEX := preload("res://Sprites/enemy_tengu.png")
+const BOMBER_TEX := preload("res://Sprites/enemy_bomber.png")
 const ARCHER_TEX := preload("res://Sprites/enemy_archer.png")
 const BOSS_MINI_TEX := preload("res://Sprites/boss_mini.png")
 const BOSS_FINAL_TEX := preload("res://Sprites/boss_final.png")
@@ -43,6 +48,10 @@ func _spawn_enemy() -> void:
 
 	add_child(enemy)
 
+	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
+	current_interval = max(MIN_INTERVAL, current_interval - 0.02)
+	timer.wait_time = current_interval
+
 func _pick_enemy_type(distance: float) -> String:
 	var roll := randf()
 	if distance < 100.0:
@@ -83,29 +92,33 @@ func _pick_special() -> String:
 
 func _apply_type(enemy: Node, type: String) -> void:
 	match type:
+		"normal":
+			enemy.sprite_texture = NORMAL_TEX
+			enemy.sprite_scale = 0.13
 		"tank":
 			enemy.speed = 70.0
 			enemy.health = 6
 			enemy.coin_value = 5
-			enemy.scale = Vector2(1.5, 1.5)
-			enemy.modulate = Color(1, 0.4, 0.4)
+			enemy.sprite_texture = TANK_TEX
+			enemy.sprite_scale = 0.2
 		"fast":
 			enemy.speed = 280.0
 			enemy.health = 1
 			enemy.coin_value = 2
-			enemy.scale = Vector2(0.8, 0.8)
-			enemy.modulate = Color(0.5, 0.8, 1)
+			enemy.sprite_texture = FAST_TEX
+			enemy.sprite_scale = 0.11
 		"tengu":
 			enemy.speed = 220.0
 			enemy.health = 1
 			enemy.coin_value = 2
-			enemy.scale = Vector2(0.9, 0.9)
-			enemy.modulate = Color(0.6, 0.4, 1)
+			enemy.sprite_texture = TENGU_TEX
+			enemy.sprite_scale = 0.14
 		"bomber":
 			enemy.speed = 240.0
 			enemy.health = 1
 			enemy.coin_value = 3
-			enemy.modulate = Color(1, 0.6, 0.1)
+			enemy.sprite_texture = BOMBER_TEX
+			enemy.sprite_scale = 0.12
 			enemy.explosive = true
 		"archer":
 			enemy.speed = 100.0
@@ -114,10 +127,6 @@ func _apply_type(enemy: Node, type: String) -> void:
 			enemy.modulate = Color(1, 1, 1)
 			enemy.sprite_texture = ARCHER_TEX
 			enemy.archer = true
-
-	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
-	current_interval = max(MIN_INTERVAL, current_interval - 0.02)
-	timer.wait_time = current_interval
 
 func _process(_delta: float) -> void:
 	var game := get_tree().current_scene
