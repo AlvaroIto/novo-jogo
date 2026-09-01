@@ -9,10 +9,9 @@ const BOMBER_TEX := preload("res://Sprites/enemy_bomber.png")
 const ARCHER_TEX := preload("res://Sprites/enemy_archer.png")
 const BOSS_MINI_TEX := preload("res://Sprites/boss_mini.png")
 const BOSS_FINAL_TEX := preload("res://Sprites/boss_final.png")
-const SPAWN_INTERVAL := 2.0
-const MIN_INTERVAL := 0.5
+const SPAWN_INTERVAL := 1.0
+const MIN_INTERVAL := 0.25
 const SPAWN_DISTANCE := 650.0
-const SPAWN_Y_RANGE := 350.0
 
 var current_interval := SPAWN_INTERVAL
 var timer: Timer
@@ -35,10 +34,11 @@ func _spawn_enemy() -> void:
 	var type := _pick_enemy_type(game.max_distance)
 	var enemy := ENEMY_SCENE.instantiate()
 
-	# nascem na linha do chão ou acima dela, nunca abaixo
-	var offset_y := randf_range(-SPAWN_Y_RANGE, 0.0)
+	# terrestres nascem na linha do chão; tengus numa faixa logo acima,
+	# ainda ao alcance das armas melee
+	var offset_y := 0.0
 	if type == "tengu":
-		offset_y = randf_range(-350.0, -200.0)
+		offset_y = randf_range(-100.0, -80.0)
 	enemy.global_position = player.global_position + Vector2(SPAWN_DISTANCE, offset_y)
 
 	_apply_type(enemy, type)
@@ -96,32 +96,32 @@ func _apply_type(enemy: Node, type: String) -> void:
 			enemy.sprite_texture = NORMAL_TEX
 			enemy.sprite_scale = 0.13
 		"tank":
-			enemy.speed = 70.0
+			enemy.speed = 50.0
 			enemy.health = 6
 			enemy.coin_value = 5
 			enemy.sprite_texture = TANK_TEX
 			enemy.sprite_scale = 0.2
 		"fast":
-			enemy.speed = 280.0
+			enemy.speed = 180.0
 			enemy.health = 1
 			enemy.coin_value = 2
 			enemy.sprite_texture = FAST_TEX
 			enemy.sprite_scale = 0.11
 		"tengu":
-			enemy.speed = 220.0
+			enemy.speed = 150.0
 			enemy.health = 1
 			enemy.coin_value = 2
 			enemy.sprite_texture = TENGU_TEX
 			enemy.sprite_scale = 0.14
 		"bomber":
-			enemy.speed = 240.0
+			enemy.speed = 160.0
 			enemy.health = 1
 			enemy.coin_value = 3
 			enemy.sprite_texture = BOMBER_TEX
 			enemy.sprite_scale = 0.12
 			enemy.explosive = true
 		"archer":
-			enemy.speed = 100.0
+			enemy.speed = 70.0
 			enemy.health = 2
 			enemy.coin_value = 4
 			enemy.modulate = Color(1, 1, 1)
@@ -142,7 +142,7 @@ func _spawn_boss(hp: int, color: Color, coins: int, is_final := false) -> void:
 		return
 	var boss := ENEMY_SCENE.instantiate()
 	boss.global_position = player.global_position + Vector2(SPAWN_DISTANCE, 0)
-	boss.speed = 50.0
+	boss.speed = 40.0
 	boss.health = hp
 	boss.coin_value = coins
 	boss.gem_count = 5

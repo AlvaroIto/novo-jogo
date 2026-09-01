@@ -4,7 +4,11 @@ const WEAPON_SCENES := {
 	"projectile": preload("res://Scenes/weapons/projectile_weapon.tscn"),
 	"slash": preload("res://Scenes/weapons/slash_weapon.tscn"),
 	"aura": preload("res://Scenes/weapons/aura_weapon.tscn"),
+	"yumi": preload("res://Scenes/weapons/projectile_weapon.tscn"),
+	"naginata": preload("res://Scenes/weapons/naginata_weapon.tscn"),
+	"iai": preload("res://Scenes/weapons/iai_weapon.tscn"),
 }
+const MAX_WEAPONS := 4
 
 # sprites por classe (arte nova é maior, então cada uma tem sua escala)
 const CLASS_SPRITES := {
@@ -16,7 +20,7 @@ const CLASS_SPRITES := {
 var max_health := 100
 var health := 100
 var invincible := false
-var speed := 300.0
+var speed := 200.0
 var min_x := 0.0
 var xp := 0
 var level := 1
@@ -33,6 +37,10 @@ var slash_interval := 1.5
 var slash_range := 130.0
 var aura_damage := 1
 var aura_interval := 0.5
+var naginata_damage := 4
+var naginata_interval := 2.0
+var naginata_range := 220.0
+var dodge_chance := 0.0
 
 var berserker := false
 var weapon_keys: Array = []
@@ -60,12 +68,17 @@ func _apply_class(class_key: String) -> void:
 			berserker = true
 		"projectile_damage":
 			projectile_damage += 1
-	var weapon: Node = WEAPON_SCENES[data.weapon].instantiate()
-	add_child(weapon)
-	weapon_keys.append(data.weapon)
+	add_weapon(data.weapon)
 	if CLASS_SPRITES.has(class_key):
 		$Sprite2D.texture = CLASS_SPRITES[class_key].texture
 		$Sprite2D.scale = CLASS_SPRITES[class_key].scale
+
+func add_weapon(key: String) -> void:
+	if weapon_keys.size() >= MAX_WEAPONS or key in weapon_keys:
+		return
+	var weapon: Node = WEAPON_SCENES[key].instantiate()
+	add_child(weapon)
+	weapon_keys.append(key)
 
 func get_damage_multiplier() -> float:
 	if not berserker:
@@ -90,6 +103,8 @@ func _physics_process(_delta):
 func _take_damage(amount: int) -> void:
 	if invincible:
 		return
+	if randf() < dodge_chance:
+		return  # esquivou!
 	health -= amount
 	if health <= 0:
 		_game_over()
@@ -128,15 +143,16 @@ func apply_upgrade(key: String) -> void:
 			projectile_damage += 1
 			slash_damage += 1
 			aura_damage += 1
+			naginata_damage += 1
 		"special_a":
-			if "projectile" in weapon_keys:
+			if "projectile" in weapon_keys or "yumi" in weapon_keys:
 				pierce_chance += 0.25
 			else:
 				for weapon in get_tree().get_nodes_in_group("weapons"):
 					if weapon.has_method("apply_range_bonus"):
 						weapon.apply_range_bonus(1.25)
 		"special_b":
-			if "projectile" in weapon_keys:
+			if "projectile" in weapon_keys or "yumi" in weapon_keys:
 				multi_chance += 0.20
 			else:
 				double_attack_chance += 0.20

@@ -1,0 +1,53 @@
+extends Node2D
+
+# Naginata: corte frontal de longo alcance
+const ICON := preload("res://Sprites/slash.png")
+
+var player: Node
+var timer: Timer
+
+func _ready() -> void:
+	player = get_parent()
+	add_to_group("weapons")
+	timer = Timer.new()
+	timer.wait_time = player.naginata_interval
+	timer.autostart = true
+	timer.timeout.connect(_strike)
+	add_child(timer)
+
+func update_interval() -> void:
+	timer.wait_time = player.naginata_interval
+
+func apply_range_bonus(factor: float) -> void:
+	player.naginata_range *= factor
+
+func _strike() -> void:
+	_hit()
+	if randf() < player.double_attack_chance:
+		_hit()
+
+func _hit() -> void:
+	var enemies := get_tree().get_nodes_in_group("enemies")
+	var hit_any := false
+	var damage := int(player.naginata_damage * player.get_damage_multiplier())
+	for enemy in enemies:
+		var diff: Vector2 = enemy.global_position - player.global_position
+		if diff.length() <= player.naginata_range and diff.x > -30.0:
+			enemy.take_damage(damage)
+			hit_any = true
+	if hit_any:
+		_show_effect()
+
+func _show_effect() -> void:
+	var sprite := Sprite2D.new()
+	sprite.texture = ICON
+	sprite.modulate = Color(1, 1, 1, 0.9)
+	sprite.scale = Vector2(0.12, 0.12)
+	sprite.z_index = 1
+	sprite.global_position = player.global_position + Vector2(90, 0)
+	get_tree().current_scene.add_child(sprite)
+	var tween := sprite.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(sprite, "scale", Vector2(0.35, 0.35), 0.2)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.2)
+	tween.chain().tween_callback(sprite.queue_free)

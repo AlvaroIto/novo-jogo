@@ -14,6 +14,7 @@ const CLASSES := {
 		"weapon": "slash",
 		"passive": "attack_speed",
 		"description": "+10% velocidade de ataque",
+		"extra_weapons": ["naginata", "yumi", "iai"],
 	},
 	"viking": {
 		"name": "Viking",
@@ -27,6 +28,15 @@ const CLASSES := {
 		"passive": "projectile_damage",
 		"description": "+1 dano em projéteis",
 	},
+}
+
+const WEAPON_NAMES := {
+	"slash": "Katana",
+	"aura": "Grito de Guerra",
+	"projectile": "Pílum",
+	"naginata": "Naginata (corte frontal)",
+	"yumi": "Yumi (arco longo)",
+	"iai": "Postura de Iai (esquiva)",
 }
 
 const BASE_COSTS := {

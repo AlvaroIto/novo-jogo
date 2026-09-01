@@ -106,10 +106,10 @@ entrou em colapso.
 
 | Inimigo | Comportamento |
 |---|---|
-| Normal | persegue o jogador (2 HP, velocidade 150) |
-| Rápido | fraco e veloz (1 HP, velocidade 280) |
-| Tanque | lento e resistente (6 HP, velocidade 70) |
-| 🦇 Tengu | nasce acima da linha do chão e mergulha no jogador |
+| Normal | persegue o jogador (2 HP, velocidade 100) |
+| Rápido | fraco e veloz (1 HP, velocidade 180) |
+| Tanque | lento e resistente (6 HP, velocidade 50) |
+| 🦈 Tengu | nasce numa faixa acima da linha do chão (ao alcance das armas melee) e mergulha no jogador |
 | 💣 Bombardeiro | corre e explode ao se aproximar (15 de dano); se explodir, não dá recompensa |
 | 🏹 Arqueiro | para a 300px e atira flechas lentas (5 de dano); flechas podem ser destruídas por corte, aura ou projéteis |
 
@@ -180,6 +180,10 @@ junto com sinergias de classe).
   cada classe virão com os próximos sistemas
 - Upgrades especiais adaptáveis por classe: projétil ganha
   perfurar/tiro duplo; corte e aura ganham alcance/ataque duplo
+- Sistema de até 4 armas (piloto com o Samurai): level up pode oferecer
+  arma nova do arsenal da classe — naginata (corte frontal), yumi
+  (projétil) ou Postura de Iai (15% de esquiva). Outras classes usam
+  só upgrades gerais por enquanto
 - Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
   mini-boss, boss final e flecha dos arqueiros
 - Cenário em camadas com parallax (céu fixo, horizonte e chão com

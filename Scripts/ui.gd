@@ -41,22 +41,30 @@ func _process(_delta: float) -> void:
 	time_label.text = "Tempo: %02d:%02d" % [seconds / 60, seconds % 60]
 
 func show_level_up() -> void:
-	var keys := UPGRADES.keys()
-	keys.shuffle()
-	current_upgrades = keys.slice(0, 3)
+	var pool := UPGRADES.keys()
+	var extras: Array = GameData.CLASSES[GameData.selected_class].get("extra_weapons", [])
+	if player.weapon_keys.size() < player.MAX_WEAPONS:
+		for w in extras:
+			if w not in player.weapon_keys:
+				pool.append("weapon:" + w)
+	pool.shuffle()
+	current_upgrades = pool.slice(0, 3)
 	for i in 3:
 		upgrade_buttons[i].text = _get_upgrade_text(current_upgrades[i])
 	level_up_screen.visible = true
 	get_tree().paused = true
 
 func _get_upgrade_text(key: String) -> String:
+	if key.begins_with("weapon:"):
+		var w := key.trim_prefix("weapon:")
+		return "Nova arma: " + GameData.WEAPON_NAMES.get(w, w)
 	match key:
 		"special_a":
-			if "projectile" in player.weapon_keys:
+			if "projectile" in player.weapon_keys or "yumi" in player.weapon_keys:
 				return "+25% Chance de Perfurar"
 			return "+25% Alcance da Arma"
 		"special_b":
-			if "projectile" in player.weapon_keys:
+			if "projectile" in player.weapon_keys or "yumi" in player.weapon_keys:
 				return "+20% Chance de Tiro Duplo"
 			return "+20% Chance de Ataque Duplo"
 	return UPGRADES[key]
@@ -101,7 +109,11 @@ func _go_to_camp() -> void:
 	get_tree().change_scene_to_file("res://Scenes/camp.tscn")
 
 func _pick_upgrade(index: int) -> void:
-	player.apply_upgrade(current_upgrades[index])
+	var key: String = current_upgrades[index]
+	if key.begins_with("weapon:"):
+		player.add_weapon(key.trim_prefix("weapon:"))
+	else:
+		player.apply_upgrade(key)
 	_close_level_up()
 
 func _on_health_button_pressed() -> void:

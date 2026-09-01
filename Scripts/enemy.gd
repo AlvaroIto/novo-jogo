@@ -3,7 +3,7 @@ extends CharacterBody2D
 const XP_GEM_SCENE := preload("res://Scenes/xp_gem.tscn")
 const ARROW_SCENE := preload("res://Scenes/enemy_arrow.tscn")
 
-var speed := 150.0
+var speed := 100.0
 var health := 2
 var coin_value := 1
 var gem_count := 1
