@@ -9,6 +9,8 @@ const WEAPON_SCENES := {
 	"iai": preload("res://Scenes/weapons/iai_weapon.tscn"),
 }
 const MAX_WEAPONS := 4
+const YUMI_ARROW := preload("res://Sprites/yumi_arrow.png")
+const IAI_FX := preload("res://Sprites/iai_stance.png")
 
 # sprites por classe (arte nova é maior, então cada uma tem sua escala)
 const CLASS_SPRITES := {
@@ -77,6 +79,8 @@ func add_weapon(key: String) -> void:
 	if weapon_keys.size() >= MAX_WEAPONS or key in weapon_keys:
 		return
 	var weapon: Node = WEAPON_SCENES[key].instantiate()
+	if key == "yumi":
+		weapon.projectile_texture = YUMI_ARROW
 	add_child(weapon)
 	weapon_keys.append(key)
 
@@ -104,6 +108,7 @@ func _take_damage(amount: int) -> void:
 	if invincible:
 		return
 	if randf() < dodge_chance:
+		_show_dodge_effect()
 		return  # esquivou!
 	health -= amount
 	if health <= 0:
@@ -114,6 +119,19 @@ func _take_damage(amount: int) -> void:
 	await get_tree().create_timer(1.0).timeout
 	modulate = Color(1, 1, 1)
 	invincible = false
+
+func _show_dodge_effect() -> void:
+	var sprite := Sprite2D.new()
+	sprite.texture = IAI_FX
+	sprite.scale = Vector2(0.15, 0.15)
+	sprite.z_index = 2
+	sprite.global_position = global_position
+	get_tree().current_scene.add_child(sprite)
+	var tween := sprite.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(sprite, "scale", Vector2(0.3, 0.3), 0.3)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.3)
+	tween.chain().tween_callback(sprite.queue_free)
 
 func _game_over() -> void:
 	get_tree().current_scene.get_node("UI").show_game_over()

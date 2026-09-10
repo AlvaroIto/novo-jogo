@@ -1,7 +1,7 @@
 extends Node2D
 
 # Naginata: corte frontal de longo alcance
-const ICON := preload("res://Sprites/slash.png")
+const ICON := preload("res://Sprites/naginata_slash.png")
 
 var player: Node
 var timer: Timer

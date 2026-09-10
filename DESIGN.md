@@ -186,5 +186,7 @@ junto com sinergias de classe).
   só upgrades gerais por enquanto
 - Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
   mini-boss, boss final e flecha dos arqueiros
+- Arte das armas: flecha do yumi, arco da naginata (azul) e efeito de
+  esquiva da Postura de Iai (brilho azul ao anular dano)
 - Cenário em camadas com parallax (céu fixo, horizonte e chão com
   repetição), gema de XP, efeito de corte e ícone de moeda com arte

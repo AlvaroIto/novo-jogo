@@ -5,10 +5,13 @@ const SPEED := 500.0
 var direction := Vector2.RIGHT
 var damage := 1
 var pierce := 0
+var sprite_texture: Texture2D = null
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	rotation = direction.angle()
+	if sprite_texture != null:
+		$Sprite2D.texture = sprite_texture
 
 func _physics_process(delta: float) -> void:
 	position += direction * SPEED * delta

@@ -4,6 +4,7 @@ const PROJECTILE_SCENE := preload("res://Scenes/projectile.tscn")
 
 var player: Node
 var timer: Timer
+var projectile_texture: Texture2D = null
 
 func _ready() -> void:
 	player = get_parent()
@@ -30,6 +31,7 @@ func _spawn(direction: Vector2) -> void:
 	var projectile := PROJECTILE_SCENE.instantiate()
 	projectile.global_position = player.global_position
 	projectile.direction = direction
+	projectile.sprite_texture = projectile_texture
 	projectile.damage = int(player.projectile_damage * player.get_damage_multiplier())
 	projectile.pierce = 1 if randf() < player.pierce_chance else 0
 	get_tree().current_scene.get_node("Projectiles").add_child(projectile)
