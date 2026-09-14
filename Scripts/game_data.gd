@@ -21,12 +21,14 @@ const CLASSES := {
 		"weapon": "aura",
 		"passive": "berserker",
 		"description": "Berserker: menos vida, mais dano",
+		"extra_weapons": ["axe", "orbital", "lifesteal"],
 	},
 	"espartano": {
 		"name": "Espartano",
 		"weapon": "projectile",
 		"passive": "projectile_damage",
 		"description": "+1 dano em projéteis",
+		"extra_weapons": ["discobolus"],
 	},
 }
 
@@ -37,6 +39,10 @@ const WEAPON_NAMES := {
 	"naginata": "Naginata (corte frontal)",
 	"yumi": "Yumi (arco longo)",
 	"iai": "Postura de Iai (esquiva)",
+	"axe": "Machado Pesado (corte lento e forte)",
+	"orbital": "Escudo Orbital (gira e empurra)",
+	"lifesteal": "Sede de Sangue (roubo de vida)",
+	"discobolus": "Discóbolo (bumerangue: vai e volta)",
 }
 
 const BASE_COSTS := {

@@ -58,6 +58,8 @@ func _shoot_arrow() -> void:
 	get_parent().add_child(arrow)
 
 func take_damage(amount: int) -> void:
+	if player != null:
+		player.heal_from_damage(amount)
 	health -= amount
 	if health <= 0:
 		die()

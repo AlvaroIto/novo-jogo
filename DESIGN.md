@@ -43,7 +43,7 @@ entrou em colapso.
 |---|---|---|---|---|
 | **Samurai** | Katana (corte em área) | +10% velocidade de ataque | Postura de Iai (15% de esquiva) | yumi (arco longo), naginata (corte frontal de longo alcance) |
 | **Viking** | Grito de Guerra (aura) | **Berserker**: quanto menos vida, mais dano (até +50%) | Sede de Sangue (roubo de vida: cura % do dano causado) | machado pesado (corte lento e forte), escudo orbital |
-| **Espartano** | Pílum (projétil) | +1 dano em projéteis | Escudo de Bronze (reduz dano recebido em 20%) | formação de lanças (corte frontal), escudo orbital |
+| **Espartano** | Pílum (projétil) | +1 dano em projéteis | Escudo de Bronze (reduz dano recebido em 20%) | formação de lanças (corte frontal), discóbolo (projétil bumerangue: vai e volta, atinge na ida e na volta) |
 
 ### Regras
 
@@ -184,6 +184,9 @@ junto com sinergias de classe).
   arma nova do arsenal da classe — naginata (corte frontal), yumi
   (projétil) ou Postura de Iai (15% de esquiva). Outras classes usam
   só upgrades gerais por enquanto
+- Arsenal do Viking completo: machado pesado (8 dano / 3s), escudo
+  orbital (gira, danifica e empurra) e sede de sangue (5% de roubo de
+  vida com efeito visual)
 - Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
   mini-boss, boss final e flecha dos arqueiros
 - Arte das armas: flecha do yumi, arco da naginata (azul) e efeito de

@@ -7,10 +7,15 @@ const WEAPON_SCENES := {
 	"yumi": preload("res://Scenes/weapons/projectile_weapon.tscn"),
 	"naginata": preload("res://Scenes/weapons/naginata_weapon.tscn"),
 	"iai": preload("res://Scenes/weapons/iai_weapon.tscn"),
+	"axe": preload("res://Scenes/weapons/axe_weapon.tscn"),
+	"orbital": preload("res://Scenes/weapons/orbital_weapon.tscn"),
+	"lifesteal": preload("res://Scenes/weapons/lifesteal_weapon.tscn"),
+	"discobolus": preload("res://Scenes/weapons/discobolus_weapon.tscn"),
 }
 const MAX_WEAPONS := 4
 const YUMI_ARROW := preload("res://Sprites/yumi_arrow.png")
 const IAI_FX := preload("res://Sprites/iai_stance.png")
+const LIFESTEAL_FX := preload("res://Sprites/lifesteal_fx.png")
 
 # sprites por classe (arte nova é maior, então cada uma tem sua escala)
 const CLASS_SPRITES := {
@@ -43,6 +48,13 @@ var naginata_damage := 4
 var naginata_interval := 2.0
 var naginata_range := 220.0
 var dodge_chance := 0.0
+var axe_damage := 8
+var axe_interval := 3.0
+var axe_range := 150.0
+var lifesteal := 0.0
+var _lifesteal_pool := 0.0
+var disc_damage := 3
+var disc_interval := 2.5
 
 var berserker := false
 var weapon_keys: Array = []
@@ -133,6 +145,29 @@ func _show_dodge_effect() -> void:
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.3)
 	tween.chain().tween_callback(sprite.queue_free)
 
+func heal_from_damage(amount: int) -> void:
+	if lifesteal <= 0.0:
+		return
+	_lifesteal_pool += amount * lifesteal
+	if _lifesteal_pool >= 1.0:
+		var heal := int(_lifesteal_pool)
+		_lifesteal_pool -= heal
+		health = min(health + heal, max_health)
+		_show_lifesteal_effect()
+
+func _show_lifesteal_effect() -> void:
+	var sprite := Sprite2D.new()
+	sprite.texture = LIFESTEAL_FX
+	sprite.scale = Vector2(0.06, 0.06)
+	sprite.z_index = 2
+	sprite.global_position = global_position + Vector2(0, -20)
+	get_tree().current_scene.add_child(sprite)
+	var tween := sprite.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(sprite, "position:y", sprite.position.y - 40.0, 0.5)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.5)
+	tween.chain().tween_callback(sprite.queue_free)
+
 func _game_over() -> void:
 	get_tree().current_scene.get_node("UI").show_game_over()
 
@@ -162,6 +197,8 @@ func apply_upgrade(key: String) -> void:
 			slash_damage += 1
 			aura_damage += 1
 			naginata_damage += 1
+			axe_damage += 1
+			disc_damage += 1
 		"special_a":
 			if "projectile" in weapon_keys or "yumi" in weapon_keys:
 				pierce_chance += 0.25
