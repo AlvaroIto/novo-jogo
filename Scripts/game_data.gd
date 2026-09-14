@@ -28,7 +28,7 @@ const CLASSES := {
 		"weapon": "projectile",
 		"passive": "projectile_damage",
 		"description": "+1 dano em projéteis",
-		"extra_weapons": ["discobolus"],
+		"extra_weapons": ["spear_formation", "bronze_shield", "discobolus"],
 	},
 }
 
@@ -43,6 +43,8 @@ const WEAPON_NAMES := {
 	"orbital": "Escudo Orbital (gira e empurra)",
 	"lifesteal": "Sede de Sangue (roubo de vida)",
 	"discobolus": "Discóbolo (bumerangue: vai e volta)",
+	"spear_formation": "Formação de Lanças (frente)",
+	"bronze_shield": "Escudo de Bronze (-20% dano)",
 }
 
 const BASE_COSTS := {

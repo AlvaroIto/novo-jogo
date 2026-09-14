@@ -187,6 +187,9 @@ junto com sinergias de classe).
 - Arsenal do Viking completo: machado pesado (8 dano / 3s), escudo
   orbital (gira, danifica e empurra) e sede de sangue (5% de roubo de
   vida com efeito visual)
+- Arsenal do Espartano completo: formação de lanças (frente, 5 dano),
+  escudo de bronze (-20% dano recebido) e discóbolo (bumerangue que
+  atinge na ida e na volta)
 - Sprites de pixel art (pack craftpix): samurai do jogador, arqueiro,
   mini-boss, boss final e flecha dos arqueiros
 - Arte das armas: flecha do yumi, arco da naginata (azul) e efeito de

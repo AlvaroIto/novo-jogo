@@ -11,6 +11,8 @@ const WEAPON_SCENES := {
 	"orbital": preload("res://Scenes/weapons/orbital_weapon.tscn"),
 	"lifesteal": preload("res://Scenes/weapons/lifesteal_weapon.tscn"),
 	"discobolus": preload("res://Scenes/weapons/discobolus_weapon.tscn"),
+	"spear_formation": preload("res://Scenes/weapons/spear_formation_weapon.tscn"),
+	"bronze_shield": preload("res://Scenes/weapons/bronze_shield_weapon.tscn"),
 }
 const MAX_WEAPONS := 4
 const YUMI_ARROW := preload("res://Sprites/yumi_arrow.png")
@@ -55,6 +57,10 @@ var lifesteal := 0.0
 var _lifesteal_pool := 0.0
 var disc_damage := 3
 var disc_interval := 2.5
+var spear_damage := 5
+var spear_interval := 2.2
+var spear_range := 240.0
+var damage_reduction := 0.0
 
 var berserker := false
 var weapon_keys: Array = []
@@ -122,6 +128,7 @@ func _take_damage(amount: int) -> void:
 	if randf() < dodge_chance:
 		_show_dodge_effect()
 		return  # esquivou!
+	amount = max(1, int(amount * (1.0 - damage_reduction)))
 	health -= amount
 	if health <= 0:
 		_game_over()
@@ -199,6 +206,7 @@ func apply_upgrade(key: String) -> void:
 			naginata_damage += 1
 			axe_damage += 1
 			disc_damage += 1
+			spear_damage += 1
 		"special_a":
 			if "projectile" in weapon_keys or "yumi" in weapon_keys:
 				pierce_chance += 0.25
