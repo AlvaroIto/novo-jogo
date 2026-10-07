@@ -9,11 +9,11 @@ const BOMBER_TEX := preload("res://Sprites/enemy_bomber.png")
 const ARCHER_TEX := preload("res://Sprites/enemy_archer.png")
 const BOSS_MINI_TEX := preload("res://Sprites/boss_mini.png")
 const BOSS_FINAL_TEX := preload("res://Sprites/boss_final.png")
-const SPAWN_INTERVAL := 1.0
-const MIN_INTERVAL := 0.25
-const SPAWN_DISTANCE := 650.0
 
-var current_interval := SPAWN_INTERVAL
+const SPAWN_DISTANCE := 650.0
+const WAVE_PERIOD := 20.0
+const WAVE_SPREAD := 0.15
+
 var timer: Timer
 var mini_boss_spawned := false
 var boss_spawned := false
@@ -22,20 +22,29 @@ var boss_spawned := false
 
 func _ready() -> void:
 	timer = Timer.new()
-	timer.wait_time = current_interval
+	timer.wait_time = 3.0  # primeira onda vem rapido
 	timer.autostart = true
-	timer.timeout.connect(_spawn_enemy)
+	timer.timeout.connect(_start_wave)
 	add_child(timer)
 
-func _spawn_enemy() -> void:
+func _start_wave() -> void:
 	if player == null:
 		return
+	timer.wait_time = WAVE_PERIOD
+	var game := get_tree().current_scene
+	var size := 5 + int(game.max_distance / 40.0)
+	for i in size:
+		if not is_inside_tree():
+			return
+		_spawn_enemy()
+		await get_tree().create_timer(WAVE_SPREAD).timeout
+
+func _spawn_enemy() -> void:
 	var game := get_tree().current_scene
 	var type := _pick_enemy_type(game.max_distance)
 	var enemy := ENEMY_SCENE.instantiate()
 
-	# terrestres nascem na linha do chão; tengus numa faixa logo acima,
-	# ainda ao alcance das armas melee
+	# terrestres na linha do chao; tengus na faixa acima (alcance melee)
 	var offset_y := 0.0
 	if type == "tengu":
 		offset_y = randf_range(-100.0, -80.0)
@@ -43,14 +52,10 @@ func _spawn_enemy() -> void:
 
 	_apply_type(enemy, type)
 
-	# escala suave de HP: +1 a cada 200 m
-	enemy.health += int(game.max_distance / 200.0)
+	# escala suave de HP: +5 a cada 200 m
+	enemy.health += int(game.max_distance / 200.0) * 5
 
 	add_child(enemy)
-
-	# a cada spawn, o intervalo diminui 0.02s até o mínimo de 0.5s
-	current_interval = max(MIN_INTERVAL, current_interval - 0.02)
-	timer.wait_time = current_interval
 
 func _pick_enemy_type(distance: float) -> String:
 	var roll := randf()
@@ -58,7 +63,7 @@ func _pick_enemy_type(distance: float) -> String:
 		return "normal"
 	if distance < 200.0:
 		if roll < 0.05:
-			return _pick_special()  # gotejamento: novos tipos raros
+			return _pick_special()
 		return "normal" if roll < 0.72 else "fast"
 	if distance < 400.0:
 		if roll < 0.35:
@@ -97,32 +102,32 @@ func _apply_type(enemy: Node, type: String) -> void:
 			enemy.sprite_scale = 0.13
 		"tank":
 			enemy.speed = 50.0
-			enemy.health = 6
+			enemy.health = 30
 			enemy.coin_value = 5
 			enemy.sprite_texture = TANK_TEX
 			enemy.sprite_scale = 0.2
 		"fast":
 			enemy.speed = 180.0
-			enemy.health = 1
+			enemy.health = 8
 			enemy.coin_value = 2
 			enemy.sprite_texture = FAST_TEX
 			enemy.sprite_scale = 0.11
 		"tengu":
 			enemy.speed = 150.0
-			enemy.health = 1
+			enemy.health = 8
 			enemy.coin_value = 2
 			enemy.sprite_texture = TENGU_TEX
 			enemy.sprite_scale = 0.14
 		"bomber":
 			enemy.speed = 160.0
-			enemy.health = 1
+			enemy.health = 10
 			enemy.coin_value = 3
 			enemy.sprite_texture = BOMBER_TEX
 			enemy.sprite_scale = 0.12
 			enemy.explosive = true
 		"archer":
 			enemy.speed = 70.0
-			enemy.health = 2
+			enemy.health = 12
 			enemy.coin_value = 4
 			enemy.modulate = Color(1, 1, 1)
 			enemy.sprite_texture = ARCHER_TEX
@@ -132,10 +137,10 @@ func _process(_delta: float) -> void:
 	var game := get_tree().current_scene
 	if not mini_boss_spawned and game.max_distance >= 250.0:
 		mini_boss_spawned = true
-		_spawn_boss(20, Color(0.7, 0.3, 1), 25)  # mini-boss roxo
+		_spawn_boss(100, Color(0.7, 0.3, 1), 25)  # mini-boss roxo
 	elif not boss_spawned and game.max_distance >= 500.0:
 		boss_spawned = true
-		_spawn_boss(50, Color(1, 0.85, 0.2), 50, true)  # boss final dourado
+		_spawn_boss(250, Color(1, 0.85, 0.2), 50, true)  # boss final dourado
 
 func _spawn_boss(hp: int, color: Color, coins: int, is_final := false) -> void:
 	if player == null:

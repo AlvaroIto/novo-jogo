@@ -113,11 +113,19 @@ entrou em colapso.
 | 💣 Bombardeiro | corre e explode ao se aproximar (15 de dano); se explodir, não dá recompensa |
 | 🏹 Arqueiro | para a 300px e atira flechas lentas (5 de dano); flechas podem ser destruídas por corte, aura ou projéteis |
 
-**Tabela de spawn por distância:** 0–100 m só normais · 100–200 m +
+**Spawn em ondas:** a cada 20s nasce uma rajada de inimigos
+(5 + 1 por 40 m de distância, com 0,15s entre cada um). Sem spawn
+constante — ritmo de tensão e alívio.
+
+**Composição da onda por distância:** 0–100 m só normais · 100–200 m +
 rápidos, com tengu/bombardeiro/arqueiro raros (5% — gotejamento) ·
 200–400 m mistura crescente · 400 m+ mistura total.
 
-**Escala suave de HP:** inimigos comuns ganham +1 HP a cada 200 m
+**Números reescalados (×5):** inimigos com 8–30 HP (normal 10, rápido
+8, tanque 30, tengu 8, bombardeiro 10, arqueiro 12; chefes 100/250) e
+dano das armas proporcional — abre espaço para os efeitos de status.
+
+**Escala suave de HP:** inimigos comuns ganham +5 HP a cada 200 m
 (chefes não são afetados).
 
 **Adiados:** Escudeiro (escudo quebra após golpes frontais — repensar

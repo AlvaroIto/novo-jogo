@@ -36,28 +36,28 @@ var level := 1
 var xp_to_next_level := 5
 
 # stats das armas
-var projectile_damage := 1
+var projectile_damage := 5
 var pierce_chance := 0.0
 var multi_chance := 0.0
 var double_attack_chance := 0.0
 var shoot_interval := 1.0
-var slash_damage := 3
+var slash_damage := 15
 var slash_interval := 1.5
 var slash_range := 130.0
-var aura_damage := 1
+var aura_damage := 5
 var aura_interval := 0.5
-var naginata_damage := 4
+var naginata_damage := 20
 var naginata_interval := 2.0
 var naginata_range := 220.0
 var dodge_chance := 0.0
-var axe_damage := 8
+var axe_damage := 40
 var axe_interval := 3.0
 var axe_range := 150.0
 var lifesteal := 0.0
 var _lifesteal_pool := 0.0
-var disc_damage := 3
+var disc_damage := 15
 var disc_interval := 2.5
-var spear_damage := 5
+var spear_damage := 25
 var spear_interval := 2.2
 var spear_range := 240.0
 var damage_reduction := 0.0
@@ -87,7 +87,7 @@ func _apply_class(class_key: String) -> void:
 		"berserker":
 			berserker = true
 		"projectile_damage":
-			projectile_damage += 1
+			projectile_damage += 5
 	add_weapon(data.weapon)
 	if CLASS_SPRITES.has(class_key):
 		$Sprite2D.texture = CLASS_SPRITES[class_key].texture

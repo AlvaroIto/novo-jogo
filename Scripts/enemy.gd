@@ -4,7 +4,7 @@ const XP_GEM_SCENE := preload("res://Scenes/xp_gem.tscn")
 const ARROW_SCENE := preload("res://Scenes/enemy_arrow.tscn")
 
 var speed := 100.0
-var health := 2
+var health := 10
 var coin_value := 1
 var gem_count := 1
 var is_final_boss := false
