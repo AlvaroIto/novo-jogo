@@ -41,12 +41,12 @@ func _hit() -> void:
 func _show_effect() -> void:
 	var sprite := Sprite2D.new()
 	sprite.texture = ICON
-	sprite.scale = Vector2(0.1, 0.1)
+	sprite.scale = Vector2(0.05, 0.05)
 	sprite.z_index = 1
 	sprite.global_position = player.global_position + Vector2(120, 0)
 	get_tree().current_scene.add_child(sprite)
 	var tween := sprite.create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(sprite, "scale", Vector2(0.15, 0.15), 0.2)
+	tween.tween_property(sprite, "scale", Vector2(0.08, 0.08), 0.2)
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.2)
 	tween.chain().tween_callback(sprite.queue_free)
